@@ -1,207 +1,184 @@
-# 📦 Order Fulfillment & Late-Shipment Analytics Warehouse
-
 <div align="center">
 
-### Event-Driven Logistics Data Warehouse Built for Bottleneck Detection, SLA Analysis & Shipment Intelligence
+# 📦 Order Fulfillment & Late-Shipment Analytics Warehouse
 
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Data%20Warehouse-blue?style=for-the-badge&logo=postgresql)
-![SQLite](https://img.shields.io/badge/SQLite-Analytics-green?style=for-the-badge&logo=sqlite)
-![Python](https://img.shields.io/badge/Python-Data%20Generation-yellow?style=for-the-badge&logo=python)
-![SQL](https://img.shields.io/badge/SQL-Advanced%20Analytics-orange?style=for-the-badge)
+### Event-Driven SQL Warehousing • Bottleneck Detection • SLA Intelligence
+
+*A production-style logistics analytics project demonstrating star schema design, event-stream modeling, advanced SQL, shipment bottleneck analysis, and operational performance intelligence.*
+
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Data_Warehouse-336791?style=for-the-badge&logo=postgresql&logoColor=white)
+![SQLite](https://img.shields.io/badge/SQLite-Analytics-003B57?style=for-the-badge&logo=sqlite&logoColor=white)
+![Python](https://img.shields.io/badge/Python-Data_Generation-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![SQL](https://img.shields.io/badge/SQL-Advanced_Analytics-CC2927?style=for-the-badge&logo=microsoftsqlserver&logoColor=white)
+![Status](https://img.shields.io/badge/Project-Completed-brightgreen?style=for-the-badge)
 
 </div>
 
 ---
 
-## 🎯 Business Problem
+# 📖 Overview
 
-Late deliveries cost logistics companies millions through customer churn, refund requests, SLA penalties, and operational inefficiencies.
+Modern logistics operations generate thousands of shipment events every day. A single `status` column is not enough to understand **where delays happen, why they happen, and how they propagate across the fulfillment pipeline**.
 
-Most analytics projects store orders as a single record with a status column.
+This project models order fulfillment as an **event-driven warehouse**, enabling stage-level analytics, SLA monitoring, bottleneck detection, and shipment-path intelligence.
 
-That approach makes it nearly impossible to answer questions like:
-
-- Which stage creates the biggest delivery delays?
-- Which warehouses consistently miss SLAs?
-- Which carriers create the highest exception rates?
-- How long do orders spend waiting between fulfillment stages?
-- What percentage of delays originate from hubs versus final-mile delivery?
-
-This project solves that problem by modeling the supply chain as an **event-driven warehouse**, where every order lifecycle action is captured and analyzed.
+The focus is not just writing SQL queries — it is demonstrating **how a BI Developer or Analytics Engineer would design a warehouse for operational decision-making**.
 
 ---
 
-# 🚀 Key Highlights
+# 🚀 Key Features
 
-### Event-Sourced Logistics Model
-
-Instead of storing one row per order, the warehouse stores:
-
-```
-ORDER_PLACED
-      ↓
-PICKED
-      ↓
-PACKED
-      ↓
-SHIPPED
-      ↓
-ARRIVED_HUB
-      ↓
-DEPARTED_HUB
-      ↓
-IN_TRANSIT
-      ↓
-OUT_FOR_DELIVERY
-      ↓
-DELIVERED
-```
-
-This enables true process analytics rather than simple status reporting.
+- 🏗️ **Star Schema Warehouse Design**
+- ⏱️ **Event-Level Shipment Tracking**
+- 📉 **Late-Shipment Root Cause Analysis**
+- 🔄 **Multi-Hop Shipment Path Reconstruction**
+- 📊 **Warehouse & Carrier Performance Analytics**
+- ⚡ **Window Functions & Recursive CTEs**
+- 🧠 **Gaps-and-Islands Detection**
+- 📦 **Inventory Snapshot Analytics**
+- 📈 **Pre-Aggregated KPI Rollups**
+- 🚀 **Query Optimization Ready**
 
 ---
 
-### Advanced SQL Techniques
+# 📊 Dataset Summary
 
-This project demonstrates:
-
-- Window Functions (`LAG`, `LEAD`, Running Aggregates)
-- Recursive CTEs
-- Gaps & Islands Analysis
-- Star Schema Modeling
-- Root Cause Analysis Queries
-- SLA Performance Monitoring
-- Event Stream Analytics
-- Query Optimization
-- Warehouse Aggregation Tables
-
----
-
-## 📊 Dataset Overview
+<div align="center">
 
 | Metric | Value |
-|----------|----------|
-| Orders | 4,000+ |
-| Event Records | 28,600+ |
-| Warehouses | 6 |
-| Carriers | 5 |
-| Products | 180 |
-| Customers | 600 |
-| Delivery Period | 6 Months |
-| Return Rate | 1.5% |
-| Exception Rate | 7% |
-| Multi-Hop Shipments | 5% |
+|---|---|
+| Orders | **4,000+** |
+| Event Records | **28,600+** |
+| Warehouses | **6** |
+| Carriers | **5** |
+| Products | **180** |
+| Customers | **600** |
+| Delivery Window | **6 Months** |
+| Exception Rate | **7%** |
+| Return Rate | **1.5%** |
+| Multi-Hop Shipments | **5%** |
+
+</div>
 
 ---
 
-# 🏗 Warehouse Architecture
+# 🏗️ Warehouse Architecture
 
 ## Dimension Tables
 
-| Table | Purpose |
-|---------|---------|
-| dim_date | Calendar dimension |
-| dim_warehouse | Facility metadata |
-| dim_carrier | Carrier & SLA information |
-| dim_product | SKU attributes |
-| dim_customer | Customer segmentation |
+- `dim_date`
+- `dim_warehouse`
+- `dim_carrier`
+- `dim_product`
+- `dim_customer`
 
 ## Fact Tables
 
-| Table | Grain |
-|---------|---------|
-| fact_order_events | One row per order event |
-| fact_inventory_snapshot | Warehouse × SKU × Date |
-| fact_shipment_cost | One row per shipment leg |
-| agg_daily_ontime_performance | Daily KPI aggregate |
+- `fact_order_events`
+- `fact_inventory_snapshot`
+- `fact_shipment_cost`
+- `agg_daily_ontime_performance`
+
+---
+
+# 🔄 Analytics Workflow
+
+<div align="center">
+
+```mermaid
+flowchart LR
+    A[Raw Order Events] --> B[Event Warehouse]
+    B --> C[Lead Time Analysis]
+    B --> D[Bottleneck Detection]
+    B --> E[SLA Monitoring]
+    B --> F[Path Reconstruction]
+    C --> G[Executive KPIs]
+    D --> G
+    E --> G
+    F --> G
+```
+
+</div>
 
 ---
 
 # 📂 Repository Structure
 
 ```text
-logistics-warehouse/
+order-fulfillment-analytics/
 │
-├── README.md
-├── schema.sql
+├── 01_schema.sql
 ├── generate_data.py
 ├── logistics.db
 ├── dim_warehouse.csv
 ├── fact_order_events.csv
-│
-└── analytics/
-    ├── bottleneck_analysis.sql
-    ├── sla_analysis.sql
-    ├── shipment_pathing.sql
-    └── warehouse_performance.sql
+└── README.md
 ```
 
 ---
 
-# 🔍 Business Questions Answered
+# 🧠 Business Questions Answered
 
-### SLA Performance
+### SLA Intelligence
 
 - Which carriers miss delivery commitments most often?
-- Which warehouses contribute most to delays?
-- What is the average delivery lead time by region?
+- Which warehouses contribute the highest delay volume?
 
 ### Bottleneck Analysis
 
-- Which fulfillment stage causes the longest wait times?
-- Where do orders spend most of their lifecycle?
+- Which fulfillment stage has the highest average dwell time?
+- Where do shipments get stuck for 48+ hours?
 
 ### Shipment Intelligence
 
-- Which routes require multiple shipment hops?
-- Which hubs create the largest delay propagation?
+- Which orders require multiple transfer hubs?
+- How do hub delays affect final delivery time?
 
-### Operational Efficiency
+### Inventory & Returns
 
-- Inventory turnover by warehouse
-- Return-rate analysis
-- Exception trend monitoring
-
----
-
-# 📈 Realistic Data Challenges Simulated
-
-To make the analysis meaningful, the dataset intentionally includes:
-
-- Missing fulfillment events
-- Delivery exceptions
-- Weather disruptions
-- Capacity constraints
-- Address issues
-- Multi-hop shipments
-- Returned orders
-- SLA violations
-
-This creates realistic edge cases commonly encountered in production logistics systems.
+- Which SKUs have the highest turnover?
+- Which warehouses experience the highest return rate?
 
 ---
 
-# ⚡ Example Analytics
+# 📈 Advanced SQL Techniques
 
-### Detect Stuck Shipments
+This project demonstrates:
+
+- `LAG()` / `LEAD()`
+- Running & rolling aggregates
+- Recursive CTEs
+- Gaps-and-Islands pattern
+- Stage-to-stage lead-time calculations
+- SLA breach detection
+- Multi-table root-cause joins
+- Pre-aggregated KPI tables
+
+---
+
+# 🔍 Example Analysis
+
+## Detect Stuck Shipments
 
 ```sql
-SELECT *
-FROM shipment_events
-WHERE hours_since_last_update > 48;
+SELECT order_id,
+       MAX(event_ts) AS last_update
+FROM fact_order_events
+GROUP BY order_id
+HAVING julianday('now') - julianday(MAX(event_ts)) > 2;
 ```
 
-### Warehouse Delay Ranking
+## Warehouse Delay Ranking
 
 ```sql
 SELECT warehouse_name,
        AVG(delay_hours) AS avg_delay
-FROM warehouse_delays
+FROM warehouse_delay_metrics
 GROUP BY warehouse_name
 ORDER BY avg_delay DESC;
 ```
 
-### Carrier SLA Performance
+## Carrier SLA Performance
 
 ```sql
 SELECT carrier_name,
@@ -212,36 +189,73 @@ ORDER BY on_time_rate DESC;
 
 ---
 
-# 🛠 Tech Stack
+# ⚠️ Realistic Operational Noise
 
-| Category | Technology |
-|------------|------------|
-| Database | PostgreSQL |
-| Analytics | SQL |
-| Local Storage | SQLite |
-| Data Generation | Python |
-| Data Modeling | Star Schema |
-| Optimization | Indexing & Query Tuning |
+To simulate production logistics data, the generator intentionally injects:
+
+- Missing fulfillment events
+- Weather disruptions
+- Address exceptions
+- Capacity constraints
+- Damaged shipments
+- Multi-hop routing
+- Returns after delivery
+- SLA violations
+
+This creates realistic edge cases commonly encountered in real fulfillment systems.
 
 ---
 
-# 🎯 Skills Demonstrated
+# 🛠️ Tech Stack
+
+<div align="center">
+
+| Category | Technology |
+|---|---|
+| Data Warehouse | PostgreSQL |
+| Local Analytics | SQLite |
+| Data Generation | Python |
+| Querying | SQL |
+| Modeling | Star Schema |
+| Optimization | Indexing & Query Tuning |
+
+</div>
+
+---
+
+# 💼 Skills Demonstrated
 
 - Data Warehousing
 - Dimensional Modeling
-- Event-Driven Data Architecture
+- Event-Driven Architecture
 - Advanced SQL
 - Logistics Analytics
 - KPI Design
-- Supply Chain Intelligence
-- Query Optimization
 - Root Cause Analysis
+- SLA Monitoring
+- Query Optimization
 - Business Intelligence
 
 ---
 
-## 💡 Portfolio Value
+# 🌟 Why This Project Stands Out
 
-Unlike typical SQL portfolio projects that focus only on CRUD operations or basic reporting, this project demonstrates how modern analytics teams investigate operational bottlenecks using event-driven data models, dimensional warehousing techniques, and advanced SQL analytics.
+Unlike typical SQL portfolio projects that stop at CRUD operations or simple reporting, this project demonstrates **how operational analytics teams investigate late deliveries, isolate bottlenecks, and design executive-ready warehouse metrics from event-level data**.
 
-It is designed to mirror the type of logistics, supply-chain, and fulfillment analytics challenges solved by Data Analysts, Analytics Engineers, BI Developers, and Data Engineers in production environments.
+It is designed to showcase the kind of thinking expected from:
+
+- **BI Developers**
+- **Analytics Engineers**
+- **Data Analysts**
+- **Supply Chain Analysts**
+- **Data Engineers**
+
+---
+
+<div align="center">
+
+### ⭐ If you found this project useful, consider starring the repository!
+
+Built for demonstrating **production-style SQL warehousing and logistics analytics**.
+
+</div>
