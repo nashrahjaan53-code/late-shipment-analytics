@@ -1,0 +1,7 @@
+warehouse_key,warehouse_code,warehouse_name,region,country,capacity_units,is_hub,opened_date
+1,WH-ATL,Atlanta DC,Southeast,USA,12000,0,2019-01-01
+2,WH-DAL,Dallas DC,South,USA,15000,0,2019-01-01
+3,WH-CHI,Chicago Hub,Midwest,USA,20000,1,2019-01-01
+4,WH-LAX,Los Angeles DC,West,USA,18000,0,2019-01-01
+5,WH-NJ,New Jersey Hub,Northeast,USA,22000,1,2019-01-01
+6,WH-PHX,Phoenix DC,Southwest,USA,9000,0,2019-01-01
